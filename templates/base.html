@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SonicWave – Data Structures Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="page-home">
+  <!-- Outer-space base background -->
+  <div class="space-bg"></div>
+  <div class="space-stars" id="space-stars"></div>
+
+  <!-- Gradient/Nebula blobs and cursor glow -->
+  <div class="gradient-layer">
+    <div class="blob nebula a"></div>
+    <div class="blob nebula b"></div>
+    <div class="cursor-blob" id="cursor-blob"></div>
+    <div class="shooting-star" id="shooting-star"></div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="logo">SonicWave</div>
+      <nav>
+        <a href="#" class="active" data-section="home">Home</a>
+        <a href="#" data-section="library">Library</a>
+        <a href="#" data-section="playlists">Playlists</a>
+        <a href="#" data-section="favorites">Favorites</a>
+        <a href="#" data-section="history">History</a>
+        <a href="{{ url_for('admin_page') }}" data-section="admin">Admin</a>
+      </nav>
+    </aside>
+
+    <main id="main-content" class="page-enter">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  <div class="player-bar" id="player-bar">
+    <div class="now-thumb"></div>
+    <div class="now-info">
+      <div class="now-title" id="now-title">No song playing</div>
+      <div class="now-artist" id="now-artist"></div>
+    </div>
+    <div class="controls">
+      <button id="btn-prev">⏮</button>
+      <button id="btn-play">▶️</button>
+      <button id="btn-next">⏭</button>
+      <button id="btn-shuffle">🔀</button>
+      <button id="btn-repeat">🔁</button>
+    </div>
+    <div class="timeline">
+      <span id="cur-time">0:00</span>
+      <input type="range" id="progress" value="0" min="0" max="100" />
+      <span id="dur-time">0:00</span>
+    </div>
+    <div class="volume">
+      <span>🔊</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8" />
+    </div>
+    <audio id="audio"></audio>
+  </div>
+
+  <!-- Nayara mascot -->
+  <div id="nayara-mascot">
+    <img src="{{ url_for('static', filename='img/nayara.png') }}" alt="Nayara" />
+    <div class="bubble" id="nayara-bubble">Hi, I’m Nayara, your data-structures DJ.</div>
+  </div>
+
+  <!-- Onboarding overlay -->
+  <div id="onboard" class="onboard hidden">
+    <div class="onboard-card">
+      <img class="onboard-nayara" src="{{ url_for('static', filename='img/nayara.png') }}" alt="Nayara" />
+      <div class="onboard-msgs">
+        <div class="bubble">This player is powered by linked lists, stacks, queues, trees and graphs.</div>
+        <div class="bubble">Choose a song and I’ll fly next to it!</div>
+      </div>
+      <button id="onboard-close">Got it</button>
+    </div>
+  </div>
+
+  <script>
+    window.__INITIAL__ = {{ initial|tojson|safe if initial is defined else '{}'}};
+  </script>
+  <script src="{{ url_for('static', filename='js/player.js') }}"></script>
+</body>
+</html>

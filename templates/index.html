@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>Discover Music</h1>
+      <p>Powered by SLL, DLL, Stack, Queue, Tree, Graph & Multi-Linked List</p>
+      <div class="search">
+        <input id="search" type="text" placeholder="Search by title..." />
+      </div>
+    </div>
+    <div class="hero-3d">
+      <iframe src="https://prod.spline.design/er66D6jbuo0hIjmn/scene.splinecode" class="spline-cover" title="Spline Space"></iframe>
+    </div>
+  </section>
+
+  <section>
+    <h2>All Songs</h2>
+    <div id="songs-grid" class="grid"></div>
+  </section>
+
+  <section>
+    <h2>By Genre</h2>
+    <div id="genres" class="chips"></div>
+  </section>
+
+  <section>
+    <h2>Recently Played</h2>
+    <div id="recent" class="grid small"></div>
+  </section>
+
+  <section>
+    <h2>Recommended for You</h2>
+    <div id="reco" class="grid small"></div>
+  </section>
+{% endblock %}

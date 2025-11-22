@@ -1,0 +1,119 @@
+/* Base theme: deep space */
+:root{
+  --bg:#05060b;
+  --panel:#0b0f1a;
+  --card:#0f1625;
+  --blue:#4f8cff;
+  --purple:#a855f7;
+  --text:#e6ecff;
+  --muted:#9aa4c3;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--text); background:radial-gradient(1200px 800px at 50% 20%, #0a0c14 0%, var(--bg) 60%);
+}
+
+/* Space background layers */
+.space-bg{position:fixed; inset:0; z-index:-3; background:var(--bg)}
+.space-stars{position:fixed; inset:0; z-index:-2; pointer-events:none;}
+.gradient-layer{position:fixed; inset:0; z-index:-1; overflow:hidden}
+
+/* Stars */
+.space-stars::before, .space-stars::after{
+  content:""; position:absolute; inset:0; background-repeat:repeat; background-size:200px 200px; animation:twinkle 6s infinite ease-in-out;
+}
+.space-stars::before{background-image:radial-gradient(2px 2px at 20px 30px,#fff6 50%,transparent 52%),radial-gradient(1px 1px at 120px 80px,#fff4 50%,transparent 52%),radial-gradient(1.5px 1.5px at 60px 160px,#fff5 50%,transparent 52%)}
+.space-stars::after{background-image:radial-gradient(1px 1px at 90px 50px,#fff3 50%,transparent 52%),radial-gradient(2px 2px at 150px 120px,#fff5 50%,transparent 52%),radial-gradient(1px 1px at 30px 140px,#fff4 50%,transparent 52%); animation-delay:3s}
+@keyframes twinkle{0%,100%{opacity:.7} 50%{opacity:.3}}
+
+/* Nebula blobs */
+.blob{position:absolute; width:720px; height:480px; border-radius:999px; filter:blur(80px); opacity:.35; transform:translate(-20%, -20%) scale(1); animation:float 18s infinite ease-in-out}
+.blob.nebula.a{left:-120px; top:-80px; background:radial-gradient(circle at 40% 40%, var(--purple), transparent 60%), radial-gradient(circle at 70% 60%, var(--blue), transparent 60%)}
+.blob.nebula.b{right:-180px; bottom:-120px; background:radial-gradient(ellipse at 30% 50%, #7c3aed, transparent 60%), radial-gradient(ellipse at 70% 50%, #2563eb, transparent 60%); animation-duration:22s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(2%, -3%) scale(1.05)}}
+
+/* Shooting star */
+.shooting-star{position:absolute; width:160px; height:2px; background:linear-gradient(90deg, #fff, transparent); filter:blur(1px); top:-50px; left:-200px; opacity:0}
+.shooting-star.active{animation:shoot 1s ease-out}
+@keyframes shoot{0%{opacity:1; transform:translate(-10%, -10%) rotate(20deg)} 100%{opacity:0; transform:translate(120vw, 60vh) rotate(20deg)}}
+
+/* Cursor blob */
+.cursor-blob{position:absolute; width:420px; height:420px; border-radius:999px; background:radial-gradient(circle at 40% 40%, #4f8cff55, transparent 60%), radial-gradient(circle at 60% 60%, #a855f755, transparent 60%); filter:blur(60px); pointer-events:none; opacity:.5; transform:translate(-50%, -50%); transition:transform .18s ease-out, opacity .3s}
+
+/* Layout */
+.app-layout{display:flex; min-height:100vh}
+.sidebar{width:240px; background:rgba(15,22,37,.6); backdrop-filter:blur(10px); border-right:1px solid #1d2842; padding:20px; position:sticky; top:0; height:100vh}
+.logo{font-weight:800; letter-spacing:.5px; font-size:22px; margin-bottom:20px; color:#c7d2fe}
+.sidebar nav a{display:block; padding:10px 12px; border-radius:10px; color:var(--muted); text-decoration:none; transition:background .2s, color .2s}
+.sidebar nav a:hover{background:#101728; color:#dbe7ff}
+.sidebar nav a.active{background:linear-gradient(180deg, #1a2540, #141b2e); color:#fff; box-shadow:0 6px 18px #0006}
+
+main{flex:1; padding:28px 28px 120px}
+
+/* Hero */
+.hero{display:grid; grid-template-columns:1.2fr 1fr; gap:24px; align-items:center}
+.hero-copy h1{margin:0 0 8px; font-size:44px}
+.hero-copy p{margin:0 0 16px; color:var(--muted)}
+.search input{width:100%; padding:14px 16px; border-radius:14px; border:1px solid #223155; background:#0b1120; color:#e5edff}
+.spline-cover{width:100%; height:320px; border:0; border-radius:16px; background:#0b1120}
+
+/* Grids */
+section{margin:28px 0}
+section h2{margin:0 0 12px}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px}
+.grid.small{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.card{background:linear-gradient(180deg, rgba(26,37,64,.7), rgba(18,24,40,.7)); border:1px solid #1e2a4a; padding:12px; border-radius:14px; box-shadow:0 8px 24px #0005; transition:transform .2s, box-shadow .2s, border-color .2s}
+.card:hover{transform:translateY(-2px) scale(1.01); box-shadow:0 12px 34px #0006; border-color:#2a3a66}
+.card .thumb{height:140px; border-radius:12px; background:linear-gradient(135deg, #4f8cff, #a855f7); box-shadow:0 0 0 0 rgba(79,140,255,.5); animation:none}
+.card.active{border-image:linear-gradient(90deg, #4f8cff, #a855f7) 1; transform:scale(1.02)}
+.card.active .thumb{animation:glow 2s infinite ease-in-out}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(79,140,255,.45)} 50%{box-shadow:0 0 40px 8px rgba(168,85,247,.35)}}
+.card .meta{margin-top:10px}
+.card .meta .title{font-weight:600}
+.card .meta .sub{color:var(--muted); font-size:12px}
+.card .actions{display:flex; gap:8px; margin-top:10px}
+.card .actions button{flex:1; border:0; padding:8px 10px; border-radius:10px; background:#13203b; color:#cde1ff; cursor:pointer}
+.card .actions button:hover{background:#1b2a4c}
+
+/* Chips */
+.chips{display:flex; flex-wrap:wrap; gap:10px}
+.chips .chip{padding:8px 12px; background:#10192e; border:1px solid #1e2a4a; border-radius:999px; cursor:pointer; color:#cde1ff}
+.chips .chip:hover{background:#142141}
+
+/* Player bar */
+.player-bar{position:fixed; left:240px; right:0; bottom:0; height:88px; background:rgba(15,22,37,.75); border-top:1px solid #1e2a4a; backdrop-filter:blur(10px); display:grid; grid-template-columns:80px 1fr 320px 1fr 220px; align-items:center; gap:12px; padding:10px 18px; z-index:10}
+.now-thumb{width:60px; height:60px; border-radius:12px; background:linear-gradient(135deg, #4f8cff, #a855f7)}
+.now-info .now-title{font-weight:600}
+.now-info .now-artist{font-size:12px; color:var(--muted)}
+.controls button{border:0; padding:8px 10px; border-radius:10px; background:#141c31; color:#dbe7ff; cursor:pointer}
+.controls button:hover{background:#1a2540}
+.timeline{display:flex; align-items:center; gap:8px}
+.timeline input[type=range]{width:100%}
+.volume{display:flex; align-items:center; gap:8px}
+
+/* Page transitions */
+.page-enter{animation:pageIn .35s ease-out}
+.page-leave{animation:pageOut .25s ease-in}
+@keyframes pageIn{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:translateY(0)}}
+@keyframes pageOut{from{opacity:1; transform:translateY(0)} to{opacity:0; transform:translateY(12px)}}
+
+/* Nayara */
+#nayara-mascot{position:fixed; right:24px; bottom:110px; width:84px; text-align:center; z-index:20; animation:floatY 4s infinite ease-in-out}
+#nayara-mascot img{width:84px; height:auto; filter:drop-shadow(0 12px 24px rgba(100,100,255,.35))}
+#nayara-mascot .bubble{margin-top:6px; background:#11182c; border:1px solid #223155; padding:8px 10px; border-radius:10px; font-size:12px; color:#d7e5ff}
+@keyframes floatY{0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)}}
+
+/* Onboarding */
+.onboard{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.5); z-index:30}
+.onboard.hidden{display:none}
+.onboard-card{background:linear-gradient(180deg, #141c31, #0f1625); border:1px solid #223155; border-radius:16px; padding:20px; width:520px; text-align:center}
+.onboard-card .onboard-nayara{width:120px}
+.onboard-card .bubble{margin:8px auto; max-width:420px}
+.onboard-card button{margin-top:12px; border:0; padding:10px 14px; border-radius:10px; background:#24355f; color:white; cursor:pointer}
+
+/* Admin */
+.admin .card{max-width:420px}
+.songs-admin-list .song-row{display:grid; grid-template-columns:repeat(5, 1fr) auto; gap:8px; align-items:center; margin-bottom:8px}
+.songs-admin-list .song-row input{padding:6px 8px; background:#0b1120; border:1px solid #223155; color:#e5edff; border-radius:10px}
+.songs-admin-list .song-row .danger{background:#4b1f2a}
